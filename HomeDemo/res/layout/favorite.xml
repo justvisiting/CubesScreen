@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="78dip"
+    android:layout_height="65dip"
+    android:background="@drawable/favorite_background"
+    android:clickable="true"
+    android:ellipsize="end"
+    android:focusable="true"
+    android:gravity="center_horizontal|bottom"
+    android:maxLines="1"
+    android:paddingBottom="3dip"
+    android:paddingTop="3dip"
+    android:textColor="@color/bright_text_dark_focused"
+    android:textSize="12dip" />

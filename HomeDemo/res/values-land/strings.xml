@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Wallpaper -->
+    <string name="wallpaper_instructions">Tap image to set landscape wallpaper</string>
+
+</resources>
