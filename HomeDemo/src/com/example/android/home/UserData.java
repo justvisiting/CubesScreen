@@ -6,7 +6,7 @@ import android.R.color;
 
 public class UserData {
 
-	public int backgrouncColor;
+	public String backgroundImg;
 	public String imageName;
 	public String[] favpackNames;
 	public String[] suggestPackageNames;
@@ -29,13 +29,13 @@ public class UserData {
 	{
 		ArrayList<UserData>  rv = new ArrayList<UserData>();
 		UserData page1 = new UserData();
-		page1.backgrouncColor = color.holo_blue_light;
+		page1.backgroundImg = "bg1.png";//assumes img is in res folder
 		page1.imageName = "page1.jpg"; //assume we have that in resource folder
 		page1.favpackNames = fav; //if any of them is not installed, skip it
 		page1.suggestPackageNames = page1sug; //if any of them is not installed skip it
 		
 		UserData page2 = new UserData();
-		page2.backgrouncColor = color.holo_blue_light;
+		page2.backgroundImg = "bg2.png"; //assumes img is in res folder
 		page2.imageName = "page1.jpg"; //assume we have that in resource folder
 		page2.favpackNames = fav; //if any of them is not installed, skip it
 		page2.suggestPackageNames = page1sug; //if any of them is not installed skip it
