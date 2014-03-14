@@ -93,8 +93,13 @@ containing a value of this type.
         public static final int ic_launcher_allshow=0x7f020011;
         public static final int ic_launcher_home=0x7f020012;
         public static final int images_ad_example=0x7f020013;
-        public static final int pressed_application_background_static=0x7f020014;
-        public static final int show_all_applications=0x7f020015;
+        public static final int page1=0x7f020014;
+        public static final int page1top=0x7f020015;
+        public static final int page2=0x7f020016;
+        public static final int page2top=0x7f020017;
+        public static final int page3=0x7f020018;
+        public static final int pressed_application_background_static=0x7f020019;
+        public static final int show_all_applications=0x7f02001a;
     }
     public static final class id {
         public static final int ad=0x7f050006;
