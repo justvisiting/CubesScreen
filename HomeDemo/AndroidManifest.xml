@@ -16,6 +16,7 @@
             android:name="ScreenSlidePagerActivity"
             android:launchMode="singleInstance"
             android:stateNotNeeded="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

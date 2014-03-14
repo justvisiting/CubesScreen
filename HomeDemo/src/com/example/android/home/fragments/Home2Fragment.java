@@ -33,6 +33,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PaintDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -51,6 +52,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.home.ApplicationsStackLayout;
@@ -111,13 +113,25 @@ public class Home2Fragment extends Fragment{
 	private Animation mGridExit;
 
 	private ViewGroup mRootView;
+	
+	private ImageView mAdImageView;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		ViewGroup rootView = (ViewGroup) inflater.inflate(
-				R.layout.home, container, false);
+				R.layout.home2, container, false);
 
 		mRootView = rootView;
+		
+		mAdImageView = (ImageView) rootView.findViewById(R.id.ad);
+		mAdImageView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+            	startActivity(browserIntent);
+            }
+        });
+		
 		getActivity().setDefaultKeyMode(3);
 
 		registerIntentReceivers();

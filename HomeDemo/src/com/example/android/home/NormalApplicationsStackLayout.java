@@ -1,19 +1,21 @@
 
 package com.example.android.home;
 
+import java.util.List;
+
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
 import android.widget.TextView;
-
-import java.util.List;
 
 /**
  * The ApplicationsStackLayout is a specialized layout used for the purpose of the home screen
@@ -43,11 +45,11 @@ import java.util.List;
  * marginRight: the right margin of each element in the stack
  * marginBottom: the bottom margin of each element in the stack
  */
-public class ApplicationsStackLayout extends ViewGroup implements View.OnClickListener {
+public class NormalApplicationsStackLayout extends ViewGroup implements View.OnClickListener {
 	public static final int HORIZONTAL = 0;
 	public static final int VERTICAL = 1;
 
-	private View mButton;
+	//private View mButton;
 	private LayoutInflater mInflater;
 
 	private int mFavoritesEnd;
@@ -67,14 +69,18 @@ public class ApplicationsStackLayout extends ViewGroup implements View.OnClickLi
 
 	private Drawable mBackground;
 	private int mIconSize;
+	
+	private Context mContext;
 
-	public ApplicationsStackLayout(Context context) {
+	public NormalApplicationsStackLayout(Context context) {
 		super(context);
+		mContext = context;
 		initLayout();
 	}
 
-	public ApplicationsStackLayout(Context context, AttributeSet attrs) {
+	public NormalApplicationsStackLayout(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		mContext = context;
 
 		TypedArray a =
 				context.obtainStyledAttributes(attrs, R.styleable.ApplicationsStackLayout);
@@ -95,8 +101,8 @@ public class ApplicationsStackLayout extends ViewGroup implements View.OnClickLi
 
 	private void initLayout() {
 		mInflater = LayoutInflater.from(getContext());
-		mButton = mInflater.inflate(R.layout.all_applications_button, this, false);
-		addView(mButton);
+		//mButton = mInflater.inflate(R.layout.all_applications_button, this, false);
+		//addView(mButton);
 
 		mBackground = getBackground();
 		setBackgroundDrawable(null);
@@ -164,10 +170,10 @@ public class ApplicationsStackLayout extends ViewGroup implements View.OnClickLi
 	protected void onLayout(boolean changed, int l, int t, int r, int b) {
 		removeAllApplications();
 
-		LayoutParams layoutParams = mButton.getLayoutParams();
+		/*LayoutParams layoutParams = mButton.getLayoutParams();
 		final int widthSpec = MeasureSpec.makeMeasureSpec(layoutParams.width, MeasureSpec.EXACTLY);
 		final int heightSpec = MeasureSpec.makeMeasureSpec(layoutParams.height, MeasureSpec.EXACTLY);
-		mButton.measure(widthSpec, heightSpec);
+		mButton.measure(widthSpec, heightSpec);*/
 
 		if (mOrientation == VERTICAL) {
 			layoutVertical();
@@ -180,11 +186,11 @@ public class ApplicationsStackLayout extends ViewGroup implements View.OnClickLi
 		int childLeft = 0;
 		int childTop = getHeight();
 
-		int childWidth = mButton.getMeasuredWidth();
-		int childHeight = mButton.getMeasuredHeight();
+		//int childWidth = mButton.getMeasuredWidth();
+		//int childHeight = mButton.getMeasuredHeight();
 
-		childTop -= childHeight + mMarginBottom;
-		mButton.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);
+		//childTop -= childHeight + mMarginBottom;
+		//mButton.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);
 		childTop -= mMarginTop;
 		mFavoritesEnd = childTop - mMarginBottom;
 
@@ -203,16 +209,16 @@ public class ApplicationsStackLayout extends ViewGroup implements View.OnClickLi
 		int childLeft = getWidth();
 		int childTop = 0;
 
-		int childWidth = mButton.getMeasuredWidth();
-		int childHeight = mButton.getMeasuredHeight();
+		//int childWidth = mButton.getMeasuredWidth();
+		//int childHeight = mButton.getMeasuredHeight();
 
-		childLeft -= childWidth;
-		mButton.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);
+		//childLeft -= childWidth;
+		//mButton.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);
 		childLeft -= mMarginLeft;
 		mFavoritesEnd = childLeft - mMarginRight;
 
 		int oldChildLeft = childLeft;
-		childLeft = stackApplications(mFavorites, childLeft, childTop);
+		//childLeft = stackApplications(mFavorites, childLeft, childTop);
 		if (childLeft != oldChildLeft) {
 			mFavoritesStart = childLeft + mMarginLeft;
 		} else {
@@ -278,9 +284,9 @@ public class ApplicationsStackLayout extends ViewGroup implements View.OnClickLi
 		final int count = getChildCount();
 		for (int i = count - 1; i >= 0; i--) {
 			final View view = getChildAt(i);
-			if (view != mButton) {
+			/*if (view != mButton) {
 				removeViewAt(i);
-			}
+			 */
 		}
 	}
 
@@ -291,7 +297,6 @@ public class ApplicationsStackLayout extends ViewGroup implements View.OnClickLi
 
 		info.icon.setBounds(0, 0, mIconSize, mIconSize);
 		textView.setCompoundDrawables(null, info.icon, null, null);
-		textView.setTextColor(getResources().getColor(android.R.color.black));
 		textView.setText(info.title);
 
 		textView.setTag(info.intent);
@@ -305,7 +310,9 @@ public class ApplicationsStackLayout extends ViewGroup implements View.OnClickLi
 	 *
 	 * @param applications the applications to put in the favorites area
 	 */
-	 public void setFavorites(List<ApplicationInfo> applications) {
+	public void setFavorites(List<ApplicationInfo> applications) {
+
+		Log.e(getClass().getSimpleName(), "applications ="+applications.size());
 		mFavorites = applications;
 		requestLayout();
 	}
@@ -315,7 +322,8 @@ public class ApplicationsStackLayout extends ViewGroup implements View.OnClickLi
 	 *
 	 * @param applications the applications to put in the recents area
 	 */
-	 public void setRecents(List<ApplicationInfo> applications) {
+	public void setRecents(List<ApplicationInfo> applications) {
+		Log.e(getClass().getSimpleName(), "applications ="+applications.size());
 		mRecents = applications;
 		requestLayout();
 	}

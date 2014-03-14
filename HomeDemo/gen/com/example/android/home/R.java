@@ -100,9 +100,13 @@ containing a value of this type.
         public static final int ad=0x7f050006;
         public static final int all_apps=0x7f050007;
         public static final int faves_and_recents=0x7f050008;
-        public static final int gallery=0x7f050009;
+        public static final int gallery=0x7f05000d;
         public static final int horizontal=0x7f050000;
         public static final int label=0x7f050005;
+        public static final int normal_faves_and_recents1=0x7f050009;
+        public static final int normal_faves_and_recents2=0x7f05000a;
+        public static final int normal_faves_and_recents3=0x7f05000b;
+        public static final int normal_faves_and_recents4=0x7f05000c;
         public static final int pager=0x7f050002;
         public static final int show_all_apps=0x7f050003;
         public static final int show_all_apps_check=0x7f050004;
@@ -114,7 +118,8 @@ containing a value of this type.
         public static final int application=0x7f030002;
         public static final int favorite=0x7f030003;
         public static final int home=0x7f030004;
-        public static final int wallpaper=0x7f030005;
+        public static final int home2=0x7f030005;
+        public static final int wallpaper=0x7f030006;
     }
     public static final class string {
         /**  Home 
