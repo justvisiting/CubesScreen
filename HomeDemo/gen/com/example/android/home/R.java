@@ -175,7 +175,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:marginBottom
+          @attr name com.example.android.home:marginBottom
         */
         public static final int ApplicationsStackLayout_marginBottom = 4;
         /**
@@ -191,7 +191,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:marginLeft
+          @attr name com.example.android.home:marginLeft
         */
         public static final int ApplicationsStackLayout_marginLeft = 1;
         /**
@@ -207,7 +207,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:marginRight
+          @attr name com.example.android.home:marginRight
         */
         public static final int ApplicationsStackLayout_marginRight = 3;
         /**
@@ -223,7 +223,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:marginTop
+          @attr name com.example.android.home:marginTop
         */
         public static final int ApplicationsStackLayout_marginTop = 2;
         /**
@@ -240,7 +240,7 @@ containing a value of this type.
 <tr><td><code>horizontal</code></td><td>0</td><td></td></tr>
 <tr><td><code>vertical</code></td><td>1</td><td></td></tr>
 </table>
-          @attr name android:stackOrientation
+          @attr name com.example.android.home:stackOrientation
         */
         public static final int ApplicationsStackLayout_stackOrientation = 0;
     };
