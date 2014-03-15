@@ -1,6 +1,7 @@
 
 package com.example.android.home;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -55,8 +56,8 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 	private int mFavoritesEnd;
 	private int mFavoritesStart;
 
-	private List<ApplicationInfo> mFavorites;
-	private List<ApplicationInfo> mRecents;
+	private ArrayList<ApplicationInfo> mFavorites;
+	private ArrayList<ApplicationInfo> mRecents;
 
 	private int mOrientation = VERTICAL;
 
@@ -69,7 +70,7 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 
 	private Drawable mBackground;
 	private int mIconSize;
-	
+
 	private Context mContext;
 
 	public NormalApplicationsStackLayout(Context context) {
@@ -228,7 +229,7 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 		stackApplications(mRecents, childLeft, childTop);
 	}
 
-	private int stackApplications(List<ApplicationInfo> applications, int childLeft, int childTop) {
+	private int stackApplications(ArrayList<ApplicationInfo> applications, int childLeft, int childTop) {
 		LayoutParams layoutParams;
 		int widthSpec;
 		int heightSpec;
@@ -237,43 +238,45 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 
 		final boolean isVertical = mOrientation == VERTICAL;
 
-		final int count = applications.size();
-		for (int i = count - 1; i >= 0; i--) {
-			final ApplicationInfo info = applications.get(i);
-			final View view = createApplicationIcon(mInflater, this, info);
+		if (applications != null){
+			final int count = applications.size();
+			for (int i = count - 1; i >= 0; i--) {
+				final ApplicationInfo info = applications.get(i);
+				final View view = createApplicationIcon(mInflater, this, info);
 
-			layoutParams = view.getLayoutParams();
-			widthSpec = MeasureSpec.makeMeasureSpec(layoutParams.width, MeasureSpec.EXACTLY);
-			heightSpec = MeasureSpec.makeMeasureSpec(layoutParams.height, MeasureSpec.EXACTLY);
-			view.measure(widthSpec, heightSpec);
+				layoutParams = view.getLayoutParams();
+				widthSpec = MeasureSpec.makeMeasureSpec(layoutParams.width, MeasureSpec.EXACTLY);
+				heightSpec = MeasureSpec.makeMeasureSpec(layoutParams.height, MeasureSpec.EXACTLY);
+				view.measure(widthSpec, heightSpec);
 
-			childWidth = view.getMeasuredWidth();
-			childHeight = view.getMeasuredHeight();
+				childWidth = view.getMeasuredWidth();
+				childHeight = view.getMeasuredHeight();
 
-			if (isVertical) {
-				childTop -= childHeight + mMarginBottom;
+				if (isVertical) {
+					childTop -= childHeight + mMarginBottom;
 
-				if (childTop < 0) {
-					childTop += childHeight + mMarginBottom;
-					break;
+					if (childTop < 0) {
+						childTop += childHeight + mMarginBottom;
+						break;
+					}
+				} else {
+					childLeft -= childWidth + mMarginRight;
+
+					if (childLeft < 0) {
+						childLeft += childWidth + mMarginRight;
+						break;
+					}
 				}
-			} else {
-				childLeft -= childWidth + mMarginRight;
 
-				if (childLeft < 0) {
-					childLeft += childWidth + mMarginRight;
-					break;
+				addViewInLayout(view, -1, layoutParams);
+
+				view.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);
+
+				if (isVertical) {
+					childTop -= mMarginTop;
+				} else {
+					childLeft -= mMarginLeft;
 				}
-			}
-
-			addViewInLayout(view, -1, layoutParams);
-
-			view.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);
-
-			if (isVertical) {
-				childTop -= mMarginTop;
-			} else {
-				childLeft -= mMarginLeft;
 			}
 		}
 
@@ -310,7 +313,7 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 	 *
 	 * @param applications the applications to put in the favorites area
 	 */
-	public void setFavorites(List<ApplicationInfo> applications) {
+	public void setFavorites(ArrayList<ApplicationInfo> applications) {
 
 		Log.e(getClass().getSimpleName(), "applications ="+applications.size());
 		mFavorites = applications;
@@ -322,9 +325,50 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 	 *
 	 * @param applications the applications to put in the recents area
 	 */
-	public void setRecents(List<ApplicationInfo> applications) {
+	public void setRecents(ArrayList<ApplicationInfo> applications, int line, int pagePosition) {
 		Log.e(getClass().getSimpleName(), "applications ="+applications.size());
-		mRecents = applications;
+
+		UserData userData = UserData.GetUserPages().get(pagePosition);
+
+		ArrayList<ApplicationInfo> selectedApps = new ArrayList<ApplicationInfo>();
+
+		String[] suggestPackageNames = userData.suggestPackageNames;
+		for (int i = 0; i < suggestPackageNames.length; i++){
+			String suggestPackageName = suggestPackageNames[i];
+			for (int j = 0; j < applications.size(); j++){
+				String appPackageName = applications.get(j).intent.getComponent().getClassName();
+				if (appPackageName.contains(suggestPackageName)){
+					selectedApps.add(applications.get(j));
+				}
+			}
+		}
+
+
+		Log.e(getClass().getSimpleName(), "selectedApps ="+selectedApps.size());
+		if (line == 4){
+			if (selectedApps.size() > 0) mRecents = selectedApps;
+			
+		}
+		else if (line == 3){
+			if (selectedApps.size() > 4){
+				for (int i = 0; i< 4; i++) selectedApps.remove(selectedApps.size() -1);
+				mRecents = selectedApps;
+			}
+		}
+		else if (line == 2){
+			if (selectedApps.size() > 8){
+				for (int i = 0; i< 8; i++) selectedApps.remove(selectedApps.size() -1);
+				mRecents = selectedApps;
+			}
+		}
+		else if (line == 1){
+			if (selectedApps.size() > 12){
+				for (int i = 0; i< 12; i++) selectedApps.remove(selectedApps.size() -1);
+				mRecents = selectedApps;
+			}
+		}
+
+
 		requestLayout();
 	}
 

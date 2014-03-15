@@ -1,6 +1,7 @@
 package com.example.android.home;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -15,7 +16,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
 	/**
 	 * The number of pages (wizard steps) to show in this demo.
 	 */
-	private static final int NUM_PAGES = 2;
+	private static final int NUM_PAGES = UserData.GetUserPages().size();
 
 	/**
 	 * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -50,6 +51,9 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
 			mPager.setCurrentItem(mPager.getCurrentItem() - 1);
 		}
 	}
+	
+	public static String POSITION = "POSITION";
+	
 
 	/**
 	 * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
@@ -62,12 +66,18 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
 
 		@Override
 		public Fragment getItem(int position) {
-			if (position == 0){
-				return new Home1Fragment();
-			}
-			else{
-				return new Home2Fragment();
-			}
+			
+			Fragment fragment = new Home1Fragment();;
+			Bundle arguments = new Bundle();
+			arguments.putInt(POSITION, position);
+			fragment.setArguments(arguments);
+			return fragment;
+			//if (position == 0){
+				//return new Home1Fragment();
+			//}
+			//else{
+			//	return new Home2Fragment();
+			//}
 			
 		}
 

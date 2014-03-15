@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -29,6 +28,7 @@ import android.widget.ImageView;
 import com.example.android.home.ApplicationInfo;
 import com.example.android.home.NormalApplicationsStackLayout;
 import com.example.android.home.R;
+import com.example.android.home.ScreenSlidePagerActivity;
 
 public class Home1Fragment extends Fragment{
 
@@ -47,16 +47,18 @@ public class Home1Fragment extends Fragment{
 
 	private final BroadcastReceiver mWallpaperReceiver = new WallpaperIntentReceiver();
 	private final BroadcastReceiver mApplicationsReceiver = new ApplicationsIntentReceiver();
-	
+
 	private NormalApplicationsStackLayout mNormalApplicationsStack1;
 	private NormalApplicationsStackLayout mNormalApplicationsStack2;
 	private NormalApplicationsStackLayout mNormalApplicationsStack3;
 	private NormalApplicationsStackLayout mNormalApplicationsStack4;
 
 	private ViewGroup mRootView;
-	
+
 	private ImageView mAdImageView;
-	
+
+	private int mPosition;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -64,15 +66,21 @@ public class Home1Fragment extends Fragment{
 				R.layout.home, container, false);
 
 		mRootView = rootView;
-		
+
+		// Retrieve arguments
+		Bundle arguments = getArguments();
+		if (arguments != null) {
+			mPosition = arguments.getInt(ScreenSlidePagerActivity.POSITION);
+		}
+
 		mAdImageView = (ImageView) rootView.findViewById(R.id.ad);
 		mAdImageView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            	Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
-            	startActivity(browserIntent);
-            }
-        });
-		
+			public void onClick(View v) {
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+				startActivity(browserIntent);
+			}
+		});
+
 		getActivity().setDefaultKeyMode(3);
 
 		registerIntentReceivers();
@@ -83,7 +91,7 @@ public class Home1Fragment extends Fragment{
 
 		bindApplications(rootView);
 		bindRecents();
-		
+
 		return rootView;
 	}
 
@@ -121,7 +129,7 @@ public class Home1Fragment extends Fragment{
 	 * Creates a new appplications adapter for the grid view and registers it.
 	 */
 	private void bindApplications(ViewGroup rootView) {
-		
+
 		if (mNormalApplicationsStack1 == null){
 			mNormalApplicationsStack1 = (NormalApplicationsStackLayout) rootView.findViewById(R.id.normal_faves_and_recents1);
 		}
@@ -183,7 +191,7 @@ public class Home1Fragment extends Fragment{
 				}
 			}
 		}*/
-		
+
 		PackageManager manager = getActivity().getPackageManager();
 
 		Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
@@ -216,11 +224,14 @@ public class Home1Fragment extends Fragment{
 			}
 		}
 
-		// TODO: fix get list from array.xml
-		if (mApplications.size() > 40) mNormalApplicationsStack1.setRecents(mApplications.subList(30, 40));
-		if (mApplications.size() > 30) mNormalApplicationsStack2.setRecents(mApplications.subList(20, 30));
-		if (mApplications.size() > 20) mNormalApplicationsStack3.setRecents(mApplications.subList(10, 20));
-		if (mApplications.size() > 10) mNormalApplicationsStack4.setRecents(mApplications.subList(0, 10));
+		mNormalApplicationsStack4.setRecents(mApplications, 4, mPosition);
+		mNormalApplicationsStack3.setRecents(mApplications, 3, mPosition);
+		mNormalApplicationsStack2.setRecents(mApplications, 2, mPosition);
+		mNormalApplicationsStack1.setRecents(mApplications, 1, mPosition);
+	}
+
+	public ArrayList<ApplicationInfo> getListApplication(){
+		return null;
 	}
 
 	private static ApplicationInfo getApplicationInfo(PackageManager manager, Intent intent) {
