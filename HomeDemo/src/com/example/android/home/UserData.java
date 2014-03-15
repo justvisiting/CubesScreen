@@ -27,7 +27,8 @@ public class UserData {
 	{
 		ArrayList<UserData>  rv = new ArrayList<UserData>();
 		UserData page1 = new UserData();
-		page1.backgroundImg = R.drawable.page1;//assumes img is in res folder
+		
+		page1.backgroundImg = R.drawable.blackbg;//assumes img is in res folder
 		page1.imageName = R.drawable.page1top; //assume we have that in resource folder
 		page1.favpackNames = fav; //if any of them is not installed, skip it
 		page1.suggestPackageNames = page1sug; //if any of them is not installed skip it

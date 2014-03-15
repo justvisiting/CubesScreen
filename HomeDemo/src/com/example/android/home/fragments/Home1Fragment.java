@@ -26,6 +26,7 @@ import android.graphics.drawable.PaintDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -273,8 +274,16 @@ public class Home1Fragment extends Fragment{
 						info.activityInfo.name),
 						Intent.FLAG_ACTIVITY_NEW_TASK
 						| Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-				application.icon = info.activityInfo.loadIcon(manager);
-
+				
+				try
+				{
+				Context otherAppCtxt = getActivity().getBaseContext().createPackageContext(info.activityInfo.applicationInfo.packageName, Context.CONTEXT_IGNORE_SECURITY);
+			    //info.drawableAppIcon = 
+			    		application.icon = otherAppCtxt.getResources().getDrawableForDensity(info.activityInfo.applicationInfo.icon, DisplayMetrics.DENSITY_XHIGH);
+				//application.icon = info.d .activityInfo.loadIcon(manager);
+				} catch (PackageManager.NameNotFoundException e) {
+				    e.printStackTrace();
+				}
 				mApplications.add(application);
 			}
 		}

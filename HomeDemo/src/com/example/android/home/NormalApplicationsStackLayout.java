@@ -94,7 +94,7 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 
 		a.recycle();
 
-		mIconSize = 42; //(int) getResources().getDimension(android.R.dimen.app_icon_size);
+		mIconSize =  (int) getResources().getDimension(android.R.dimen.app_icon_size);
 
 		initLayout();
 	}
