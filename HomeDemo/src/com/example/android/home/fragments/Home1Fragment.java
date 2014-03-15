@@ -29,6 +29,7 @@ import com.example.android.home.ApplicationInfo;
 import com.example.android.home.NormalApplicationsStackLayout;
 import com.example.android.home.R;
 import com.example.android.home.ScreenSlidePagerActivity;
+import com.example.android.home.UserData;
 
 public class Home1Fragment extends Fragment{
 
@@ -53,6 +54,8 @@ public class Home1Fragment extends Fragment{
 	private NormalApplicationsStackLayout mNormalApplicationsStack3;
 	private NormalApplicationsStackLayout mNormalApplicationsStack4;
 
+	private NormalApplicationsStackLayout mNormalApplicationsFaves;
+
 	private ViewGroup mRootView;
 
 	private ImageView mAdImageView;
@@ -74,6 +77,7 @@ public class Home1Fragment extends Fragment{
 		}
 
 		mAdImageView = (ImageView) rootView.findViewById(R.id.ad);
+		mAdImageView.setImageResource(UserData.GetUserPages().get(mPosition).imageName);
 		mAdImageView.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
@@ -91,7 +95,7 @@ public class Home1Fragment extends Fragment{
 
 		bindApplications(rootView);
 		bindRecents();
-
+		rootView.setBackgroundResource(UserData.GetUserPages().get(mPosition).backgroundImg);
 		return rootView;
 	}
 
@@ -141,6 +145,9 @@ public class Home1Fragment extends Fragment{
 		}
 		if (mNormalApplicationsStack4 == null) {
 			mNormalApplicationsStack4 = (NormalApplicationsStackLayout) rootView.findViewById(R.id.normal_faves_and_recents4);
+		}
+		if (mNormalApplicationsFaves == null) {
+			mNormalApplicationsFaves = (NormalApplicationsStackLayout) rootView.findViewById(R.id.normal_faves);
 		}
 	}
 
@@ -228,6 +235,7 @@ public class Home1Fragment extends Fragment{
 		mNormalApplicationsStack3.setRecents(mApplications, 3, mPosition);
 		mNormalApplicationsStack2.setRecents(mApplications, 2, mPosition);
 		mNormalApplicationsStack1.setRecents(mApplications, 1, mPosition);
+		mNormalApplicationsFaves.setFavorites(mApplications, 1, mPosition);
 	}
 
 	public ArrayList<ApplicationInfo> getListApplication(){

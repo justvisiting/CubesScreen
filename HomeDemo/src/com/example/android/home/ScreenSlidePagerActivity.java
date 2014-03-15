@@ -1,7 +1,6 @@
 package com.example.android.home;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -10,7 +9,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.example.android.home.fragments.Home1Fragment;
-import com.example.android.home.fragments.Home2Fragment;
 
 public class ScreenSlidePagerActivity extends FragmentActivity {
 	/**

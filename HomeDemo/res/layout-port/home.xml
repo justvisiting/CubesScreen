@@ -13,6 +13,16 @@
         android:layout_marginTop="0dip"
         android:src="@drawable/images_ad_example"
         android:scaleType="centerCrop" />
+    
+    <com.example.android.home.NormalApplicationsStackLayout
+        android:id="@+id/normal_faves"
+        android:layout_width="match_parent"
+        android:layout_height="65dip"
+        android:layout_marginTop="0dip"
+        android:background="@drawable/application_background"
+        home:marginLeft="1dip"
+        home:marginRight="1dip"
+        home:stackOrientation="horizontal" />
 
     <!-- All applications on the top side of the screen -->
 
@@ -43,7 +53,8 @@
         android:background="@drawable/application_background"
         home:marginLeft="1dip"
         home:marginRight="1dip"
-        home:stackOrientation="horizontal" />
+        home:stackOrientation="horizontal"
+        android:visibility="gone" />
     
     <com.example.android.home.NormalApplicationsStackLayout
         android:id="@+id/normal_faves_and_recents2"

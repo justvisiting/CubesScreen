@@ -2,11 +2,9 @@
 package com.example.android.home;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -313,10 +311,30 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 	 *
 	 * @param applications the applications to put in the favorites area
 	 */
-	public void setFavorites(ArrayList<ApplicationInfo> applications) {
+	public void setFavorites(ArrayList<ApplicationInfo> applications, int line, int pagePosition) {
 
 		Log.e(getClass().getSimpleName(), "applications ="+applications.size());
-		mFavorites = applications;
+
+		UserData userData = UserData.GetUserPages().get(pagePosition);
+
+		ArrayList<ApplicationInfo> selectedApps = new ArrayList<ApplicationInfo>();
+
+		String[] suggestPackageNames = userData.favpackNames;
+		for (int i = 0; i < suggestPackageNames.length; i++){
+			String suggestPackageName = suggestPackageNames[i];
+			for (int j = 0; j < applications.size(); j++){
+				String appPackageName = applications.get(j).intent.getComponent().getClassName();
+				if (appPackageName.contains(suggestPackageName)){
+					selectedApps.add(applications.get(j));
+				}
+			}
+		}
+
+
+		if (line == 1){
+			mRecents = selectedApps;
+		}
+
 		requestLayout();
 	}
 
@@ -347,7 +365,7 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 		Log.e(getClass().getSimpleName(), "selectedApps ="+selectedApps.size());
 		if (line == 4){
 			if (selectedApps.size() > 0) mRecents = selectedApps;
-			
+
 		}
 		else if (line == 3){
 			if (selectedApps.size() > 4){

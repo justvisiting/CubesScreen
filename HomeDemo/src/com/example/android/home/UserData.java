@@ -2,8 +2,6 @@ package com.example.android.home;
 
 import java.util.ArrayList;
 
-import android.R.color;
-
 public class UserData {
 
 	public int backgroundImg;
@@ -11,7 +9,7 @@ public class UserData {
 	public String[] favpackNames;
 	public String[] suggestPackageNames;
 	
-	private static String[] fav = {"com.android.chrome", "com.google.android.dialer"}; //if any of them is not installed, skip it
+	private static String[] fav = {"com.android.chrome", "com.google.android.dialer", "com.facebook.katana"}; //if any of them is not installed, skip it
 	private static String[] page1sug = {"com.facebook.katana"
 		, "com.google.android.apps.docs"
 		, "com.google.android.gm"
