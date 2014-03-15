@@ -6,8 +6,8 @@ import android.R.color;
 
 public class UserData {
 
-	public String backgroundImg;
-	public String imageName;
+	public int backgroundImg;
+	public int imageName;
 	public String[] favpackNames;
 	public String[] suggestPackageNames;
 	
@@ -29,16 +29,16 @@ public class UserData {
 	{
 		ArrayList<UserData>  rv = new ArrayList<UserData>();
 		UserData page1 = new UserData();
-		page1.backgroundImg = "bg1.png";//assumes img is in res folder
-		page1.imageName = "page1.jpg"; //assume we have that in resource folder
+		page1.backgroundImg = R.drawable.page1;//assumes img is in res folder
+		page1.imageName = R.drawable.page1top; //assume we have that in resource folder
 		page1.favpackNames = fav; //if any of them is not installed, skip it
 		page1.suggestPackageNames = page1sug; //if any of them is not installed skip it
 		
 		UserData page2 = new UserData();
-		page2.backgroundImg = "bg2.png"; //assumes img is in res folder
-		page2.imageName = "page1.jpg"; //assume we have that in resource folder
+		page2.backgroundImg = R.drawable.page2; //assumes img is in res folder
+		page2.imageName = R.drawable.page2top; //assume we have that in resource folder
 		page2.favpackNames = fav; //if any of them is not installed, skip it
-		page2.suggestPackageNames = page1sug; //if any of them is not installed skip it
+		page2.suggestPackageNames = page2sug; //if any of them is not installed skip it
 		
 		rv.add(page1);
 		rv.add(page2);
