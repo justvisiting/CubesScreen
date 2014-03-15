@@ -13,6 +13,7 @@ import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
@@ -363,7 +364,7 @@ public class Home1Fragment extends Fragment{
 		return null;
 	}
 
-	private static ApplicationInfo getApplicationInfo(PackageManager manager, Intent intent) {
+	private ApplicationInfo getApplicationInfo(PackageManager manager, Intent intent) {
 		final ResolveInfo resolveInfo = manager.resolveActivity(intent, 0);
 
 		if (resolveInfo == null) {
@@ -372,7 +373,17 @@ public class Home1Fragment extends Fragment{
 
 		final ApplicationInfo info = new ApplicationInfo();
 		final ActivityInfo activityInfo = resolveInfo.activityInfo;
-		info.icon = activityInfo.loadIcon(manager);
+
+        try {
+        Context otherAppCtxt = getActivity().getBaseContext().createPackageContext(activityInfo.applicationInfo.packageName, Context.CONTEXT_IGNORE_SECURITY);
+        //info.drawableAppIcon =
+        info.icon = otherAppCtxt.getResources().getDrawableForDensity(activityInfo.applicationInfo.icon, DisplayMetrics.DENSITY_XHIGH);
+        //application.icon = info.d .activityInfo.loadIcon(manager);
+        } catch (PackageManager.NameNotFoundException ex) {
+            ex.printStackTrace();
+        }
+
+
 		if (info.title == null || info.title.length() == 0) {
 			info.title = activityInfo.loadLabel(manager);
 		}
@@ -511,9 +522,9 @@ public class Home1Fragment extends Fragment{
 			Drawable icon = info.icon;
 
 			if (!info.filtered) {
-				//final Resources resources = getContext().getResources();
-				int width = 42;//(int) resources.getDimension(android.R.dimen.app_icon_size);
-				int height = 42;//(int) resources.getDimension(android.R.dimen.app_icon_size);
+				final Resources resources = getContext().getResources();
+				int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
+				int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
 
 				final int iconWidth = icon.getIntrinsicWidth();
 				final int iconHeight = icon.getIntrinsicHeight();
