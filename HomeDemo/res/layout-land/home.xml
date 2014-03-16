@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/ad"
         android:layout_width="match_parent"
-        android:layout_height="65dip"
+        android:layout_height="wrap_content"
         android:layout_marginTop="0dip"
         android:src="@drawable/images_ad_example"
         android:scaleType="centerCrop"  />
