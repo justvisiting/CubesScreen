@@ -48,7 +48,7 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 	public static final int HORIZONTAL = 0;
 	public static final int VERTICAL = 1;
 
-	//private View mButton;
+	private View mButton;
 	private LayoutInflater mInflater;
 
 	private int mFavoritesEnd;
@@ -70,6 +70,7 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 	private int mIconSize;
 
 	private Context mContext;
+	private boolean mShowAllApps = false;
 
 	public NormalApplicationsStackLayout(Context context) {
 		super(context);
@@ -100,8 +101,8 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 
 	private void initLayout() {
 		mInflater = LayoutInflater.from(getContext());
-		//mButton = mInflater.inflate(R.layout.all_applications_button, this, false);
-		//addView(mButton);
+		
+		
 
 		mBackground = getBackground();
 		setBackgroundDrawable(null);
@@ -169,10 +170,12 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 	protected void onLayout(boolean changed, int l, int t, int r, int b) {
 		removeAllApplications();
 
-		/*LayoutParams layoutParams = mButton.getLayoutParams();
+		if (mButton != null){
+		LayoutParams layoutParams = mButton.getLayoutParams();
 		final int widthSpec = MeasureSpec.makeMeasureSpec(layoutParams.width, MeasureSpec.EXACTLY);
 		final int heightSpec = MeasureSpec.makeMeasureSpec(layoutParams.height, MeasureSpec.EXACTLY);
-		mButton.measure(widthSpec, heightSpec);*/
+		mButton.measure(widthSpec, heightSpec);
+		}
 
 		if (mOrientation == VERTICAL) {
 			layoutVertical();
@@ -185,13 +188,15 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 		int childLeft = 0;
 		int childTop = getHeight();
 
-		//int childWidth = mButton.getMeasuredWidth();
-		//int childHeight = mButton.getMeasuredHeight();
+		if (mButton != null){
+		int childWidth = mButton.getMeasuredWidth();
+		int childHeight = mButton.getMeasuredHeight();
 
-		//childTop -= childHeight + mMarginBottom;
-		//mButton.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);
+		childTop -= childHeight + mMarginBottom;
+		mButton.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);
 		childTop -= mMarginTop;
 		mFavoritesEnd = childTop - mMarginBottom;
+		}
 
 		int oldChildTop = childTop;
 		childTop = stackApplications(mFavorites, childLeft, childTop);
@@ -208,13 +213,15 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 		int childLeft = getWidth();
 		int childTop = 0;
 
-		//int childWidth = mButton.getMeasuredWidth();
-		//int childHeight = mButton.getMeasuredHeight();
+		if (mButton != null){
+		int childWidth = mButton.getMeasuredWidth();
+		int childHeight = mButton.getMeasuredHeight();
 
-		//childLeft -= childWidth;
-		//mButton.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);
+		childLeft -= childWidth;
+		mButton.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);
 		childLeft -= mMarginLeft;
 		mFavoritesEnd = childLeft - mMarginRight;
+		}
 
 		int oldChildLeft = childLeft;
 		//childLeft = stackApplications(mFavorites, childLeft, childTop);
@@ -285,9 +292,9 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 		final int count = getChildCount();
 		for (int i = count - 1; i >= 0; i--) {
 			final View view = getChildAt(i);
-			/*if (view != mButton) {
+			if (view != mButton) {
 				removeViewAt(i);
-			 */
+			}
 		}
 	}
 
@@ -311,9 +318,15 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 	 *
 	 * @param applications the applications to put in the favorites area
 	 */
-	public void setFavorites(ArrayList<ApplicationInfo> applications, int line, int pagePosition) {
+	public void setFavorites(ArrayList<ApplicationInfo> applications, int line, int pagePosition, boolean showAllApps) {
 
-		Log.e(getClass().getSimpleName(), "applications ="+applications.size());
+		mShowAllApps = showAllApps;
+		
+		Log.e(getClass().getSimpleName(), "mShowAllApps ="+mShowAllApps);
+		if (mShowAllApps){
+			mButton = mInflater.inflate(R.layout.all_applications_button, this, false);
+			addView(mButton);
+		}
 
 		UserData userData = UserData.GetUserPages().get(pagePosition);
 
@@ -343,9 +356,16 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 	 *
 	 * @param applications the applications to put in the recents area
 	 */
-	public void setRecents(ArrayList<ApplicationInfo> applications, int line, int pagePosition) {
-		Log.e(getClass().getSimpleName(), "applications ="+applications.size());
-
+	public void setRecents(ArrayList<ApplicationInfo> applications, int line, int pagePosition, boolean showAllApps) {
+		
+		mShowAllApps = showAllApps;
+		
+		Log.e(getClass().getSimpleName(), "mShowAllApps ="+mShowAllApps);
+		if (mShowAllApps){
+			mButton = mInflater.inflate(R.layout.all_applications_button, this, false);
+			addView(mButton);
+		}
+		
 		UserData userData = UserData.GetUserPages().get(pagePosition);
 
 		ArrayList<ApplicationInfo> selectedApps = new ArrayList<ApplicationInfo>();
@@ -360,9 +380,6 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 				}
 			}
 		}
-
-
-		Log.e(getClass().getSimpleName(), "selectedApps ="+selectedApps.size());
 		if (line == 4){
 			if (selectedApps.size() > 0) mRecents = selectedApps;
 
@@ -385,7 +402,6 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 				mRecents = selectedApps;
 			}
 		}
-
 
 		requestLayout();
 	}
