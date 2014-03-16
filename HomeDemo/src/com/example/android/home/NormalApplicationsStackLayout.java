@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+
 /**
  * The ApplicationsStackLayout is a specialized layout used for the purpose of the home screen
  * only. This layout stacks various icons in three distinct areas: the recents, the favorites
@@ -370,39 +371,37 @@ public class NormalApplicationsStackLayout extends ViewGroup implements View.OnC
 
 		ArrayList<ApplicationInfo> selectedApps = new ArrayList<ApplicationInfo>();
 
+		for (int j = 0; j < applications.size(); j++){
+			ApplicationInfo app = applications.get(j);
+			String appPackageName = app.intent.getComponent().getClassName();
+			String appName =  app.intent.getComponent().getPackageName();
+			
+			android.util.Log.w(appPackageName, appName);
+		}
+		
 		String[] suggestPackageNames = userData.suggestPackageNames;
 		for (int i = 0; i < suggestPackageNames.length; i++){
 			String suggestPackageName = suggestPackageNames[i];
 			for (int j = 0; j < applications.size(); j++){
-				String appPackageName = applications.get(j).intent.getComponent().getClassName();
+				ApplicationInfo app = applications.get(j);
+				String appPackageName = app.intent.getComponent().getPackageName();
 				if (appPackageName.contains(suggestPackageName)){
 					selectedApps.add(applications.get(j));
 				}
 			}
 		}
-		if (line == 4){
-			if (selectedApps.size() > 0) mRecents = selectedApps;
-
+		mRecents = new ArrayList<ApplicationInfo>();
+		for (int i = 0; i < selectedApps.size()-((4-line)*4); i++) {
+			mRecents.add(selectedApps.get(i));
 		}
-		else if (line == 3){
-			if (selectedApps.size() > 4){
-				for (int i = 0; i< 4; i++) selectedApps.remove(selectedApps.size() -1);
-				mRecents = selectedApps;
+			
+		//mRecents = selectedApps;
+		if (mRecents != null) {
+			for(int i = 0; i < mRecents.size(); i++) {
+				android.util.Log.w(mRecents.get(i).intent.getComponent().getClassName(),  "line: " + Integer.toString(line) + " page: " + Integer.toBinaryString(pagePosition));
 			}
 		}
-		else if (line == 2){
-			if (selectedApps.size() > 8){
-				for (int i = 0; i< 8; i++) selectedApps.remove(selectedApps.size() -1);
-				mRecents = selectedApps;
-			}
-		}
-		else if (line == 1){
-			if (selectedApps.size() > 12){
-				for (int i = 0; i< 12; i++) selectedApps.remove(selectedApps.size() -1);
-				mRecents = selectedApps;
-			}
-		}
-
+		
 		requestLayout();
 	}
 

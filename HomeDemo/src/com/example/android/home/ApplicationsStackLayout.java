@@ -88,7 +88,7 @@ public class ApplicationsStackLayout extends ViewGroup implements View.OnClickLi
 
 		a.recycle();
 
-		mIconSize = (int) getResources().getDimension(android.R.dimen.app_icon_size);
+		mIconSize = 38;//(int) getResources().getDimension(android.R.dimen.app_icon_size);
 
 		initLayout();
 	}

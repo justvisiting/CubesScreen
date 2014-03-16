@@ -85,21 +85,23 @@ containing a value of this type.
         public static final int bg_sunrise_icon=0x7f020009;
         public static final int bg_sunset=0x7f02000a;
         public static final int bg_sunset_icon=0x7f02000b;
-        public static final int favorite_background=0x7f02000c;
-        public static final int focused_application_background_static=0x7f02000d;
-        public static final int grid_selector=0x7f02000e;
-        public static final int hide_all_applications=0x7f02000f;
-        public static final int ic_launcher_allhide=0x7f020010;
-        public static final int ic_launcher_allshow=0x7f020011;
-        public static final int ic_launcher_home=0x7f020012;
-        public static final int images_ad_example=0x7f020013;
-        public static final int page1=0x7f020014;
-        public static final int page1top=0x7f020015;
-        public static final int page2=0x7f020016;
-        public static final int page2top=0x7f020017;
-        public static final int page3=0x7f020018;
-        public static final int pressed_application_background_static=0x7f020019;
-        public static final int show_all_applications=0x7f02001a;
+        public static final int blackbg=0x7f02000c;
+        public static final int favorite_background=0x7f02000d;
+        public static final int focused_application_background_static=0x7f02000e;
+        public static final int grid_selector=0x7f02000f;
+        public static final int hide_all_applications=0x7f020010;
+        public static final int ic_launcher_allhide=0x7f020011;
+        public static final int ic_launcher_allshow=0x7f020012;
+        public static final int ic_launcher_home=0x7f020013;
+        public static final int images_ad_example=0x7f020014;
+        public static final int massage=0x7f020015;
+        public static final int page1=0x7f020016;
+        public static final int page1top=0x7f020017;
+        public static final int page2=0x7f020018;
+        public static final int page2top=0x7f020019;
+        public static final int page3=0x7f02001a;
+        public static final int pressed_application_background_static=0x7f02001b;
+        public static final int show_all_applications=0x7f02001c;
     }
     public static final class id {
         public static final int ad=0x7f050006;
@@ -180,7 +182,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:marginBottom
+          @attr name com.example.android.home:marginBottom
         */
         public static final int ApplicationsStackLayout_marginBottom = 4;
         /**
@@ -196,7 +198,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:marginLeft
+          @attr name com.example.android.home:marginLeft
         */
         public static final int ApplicationsStackLayout_marginLeft = 1;
         /**
@@ -212,7 +214,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:marginRight
+          @attr name com.example.android.home:marginRight
         */
         public static final int ApplicationsStackLayout_marginRight = 3;
         /**
@@ -228,7 +230,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:marginTop
+          @attr name com.example.android.home:marginTop
         */
         public static final int ApplicationsStackLayout_marginTop = 2;
         /**
@@ -245,7 +247,7 @@ containing a value of this type.
 <tr><td><code>horizontal</code></td><td>0</td><td></td></tr>
 <tr><td><code>vertical</code></td><td>1</td><td></td></tr>
 </table>
-          @attr name android:stackOrientation
+          @attr name com.example.android.home:stackOrientation
         */
         public static final int ApplicationsStackLayout_stackOrientation = 0;
     };

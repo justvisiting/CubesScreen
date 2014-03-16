@@ -282,10 +282,13 @@ public class Home1Fragment extends Fragment{
 			    //info.drawableAppIcon = 
 			    		application.icon = otherAppCtxt.getResources().getDrawableForDensity(info.activityInfo.applicationInfo.icon, DisplayMetrics.DENSITY_XHIGH);
 				//application.icon = info.d .activityInfo.loadIcon(manager);
+			    		mApplications.add(application);
 				} catch (PackageManager.NameNotFoundException e) {
 				    e.printStackTrace();
+				} catch (Resources.NotFoundException rx) {
+					rx.printStackTrace();
 				}
-				mApplications.add(application);
+				
 			}
 		}
 		
@@ -297,6 +300,7 @@ public class Home1Fragment extends Fragment{
 			String suggestPackageName = suggestPackageNames[i];
 			for (int j = 0; j < mApplications.size(); j++){
 				String appPackageName = mApplications.get(j).intent.getComponent().getClassName();
+				String appName =  mApplications.get(j).intent.getComponent().getPackageName();
 				if (appPackageName.contains(suggestPackageName)){
 					selectedApps.add(mApplications.get(j));
 				}
